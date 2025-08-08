@@ -1,102 +1,51 @@
-## Description
+# RAG-based AI Chatbot with Gemini API and Qdrant Vector Store
 
-This project implements an LLM-powered Q&A mechanism to answer questions on public companies and their stock. We use Retrieval-Augmenting Generation (RAG) model together with Gemini APIs. The backend is implemented using FastAPI and the frontend is implemented using Streamlit. Qdrant 
-cloud is used as the vector database.
+This project demonstrates a **Retrieval-Augmented Generation (RAG)** pipeline built with:
+- **[Gemini API](https://ai.google.dev/gemini-api)** for powerful natural language understanding and generation.
+- **[Qdrant](https://qdrant.tech/)** as a high-performance vector database for semantic search and retrieval.
 
+The goal is to combine the generative capabilities of large language models with the precision of vector search, enabling the chatbot to answer questions based on custom knowledge sources.
 
-## Endpoints (FastAPI)
-- `/query`: 
-    - **Method**: POST
-    - **Input**: JSON {"question": "your question"}
-    - **Output**: JSON {"answer": "returned answer"}
+---
 
-## Prerequisites
-- Docker
-- Docker Compose
+## 🚀 Features
+- **Custom Knowledge Base**: Store and search your own documents in Qdrant.
+- **Semantic Retrieval**: Use embeddings to find the most relevant chunks of information.
+- **Gemini-powered Responses**: Generate rich, context-aware answers using the retrieved data.
+- **Modular Architecture**: Easy to extend with new data sources or APIs.
+- **Fast & Scalable**: Qdrant ensures low-latency search even with large datasets.
 
-## Installation and Run
-1. Clone the git repository from github:
-    ```bash
-    
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd dp_lab2
-    ```
-3. Initialize Docker Swarm
-    ```bash
-    docker swarm init
-    ```
-4. Create Docker Secrets
-    ```bash
-    echo "your-gemini-api-key" | docker secret create gemini_api_key -
-    echo "your-qdrant-api-key" | docker secret create qdrant_api_key -
-    echo "your-qdrant-url" | docker secret create qdrant_url -
-    ```
-    Add ```echo "your-openai-api-key" | docker secret create openai_api_key - ``` if use Openai API
+---
 
-    Verify Created Secrets : ```docker secret ls```
+## 🛠 Tech Stack
+- **Backend**: Python 3.x
+- **LLM API**: Google Gemini API
+- **Vector Store**: Qdrant
+- **Embeddings**: Gemini embeddings or alternative embedding models
+- **Data Processing**: LangChain / Custom pipeline (depending on your implementation)
 
-3. Run the following command to start the services:
-    ```bash
-    docker compose up --build
-    ```
+---
 
-4. The backend uses port `8000`, and the frontend (Streamlit app) uses port `8501`.
+## 📦 Installation
 
-## Configuration
-- **Environment Variables**:
-    - `OPENAI_API_KEY`: API key for Open AI.
-    - `QDRANT_API_KEY`: API key for Qdrant.
-    - `QDRANT_URL`: URL of the Qdrant vector database.
-    - The API keys are stored in the following directory
-        ```CSS
-        ├── secrets
-        │   ├── openai_api_key.secret
-        │   ├── qdrant_api_key.secret
-        │   └── qdrant_url.secret
-        ```
-
-## Usage
-1. From your web browser, type `http://localhost:8501` .
-2. A web page will show, there's an input box where you can enter your question.
-3. Press Enter, the system will get the answer and show below the header "Answer"
-4. You can also go to `http://localhost:8000/docs` to test the APIs
-5. The notebook used to divide the pdf into chunks, get embeddings, and populate Qdrant database is Rag_Data/qa_data_prep.ipynb
-
-
-## Directory Tree
-```CSS
-.
-├── Dockerfile
-├── README.md
-├── docker-compose.yml
-├── requirements.txt
-├── secrets
-│   ├── gemini_api_key.secret
-│   ├── qdrant_api_key.secret
-│   └── qdrant_url.secret
-├── QA_Data
-│   ├── data.pdf
-│   ├── qa_data_prep.ipynb
-├── src
-│   ├── __init__.py
-│   ├── api
-│   │   ├── __init__.py
-│   │   └── endpoints
-│   │       ├── __init__.py
-│   │       └── rag.py
-│   ├── config
-│   │   ├── __init__.py
-│   │   └── settings.py
-│   ├── frontend
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   └── services
-│       ├── __init__.py
-│       ├── prompt_services.py
-
-
+1. **Clone this repository**:
+```bash
+   git clone https://github.com/yourusername/rag-gemini-qdrant.git
+   cd rag-gemini-qdrant
+```
+2. **Create a virtual environment:**
+```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+3. **Install:**
+```bash
+pip install -r requirements.txt
 ```
 
-![My Local Image](./images/Screenshot-2025-03-06-213919.png)
+## Usage
+1. From your web browser, type http://localhost:8501 .
+2. A web page will show, there's an input box where you can enter your question.
+3. Press Enter, the system will get the answer and show below the header "Answer"
+4. You can also go to http://localhost:8000/docs to test the APIs
+5. The notebook used to divide the pdf into chunks, get embeddings, and populate Qdrant database is `Rag_Data/qa_data_prep.ipynb`
