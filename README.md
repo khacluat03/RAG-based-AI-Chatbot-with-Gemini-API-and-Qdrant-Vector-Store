@@ -42,7 +42,10 @@ The goal is to combine the generative capabilities of large language models with
 ```bash
 pip install -r requirements.txt
 ```
-
+4. **Build:**
+```bash
+docker compose up --build
+```
 ## Usage
 1. From your web browser, type http://localhost:8501 .
 2. A web page will show, there's an input box where you can enter your question.
